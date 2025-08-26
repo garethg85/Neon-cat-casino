@@ -1,0 +1,54 @@
+body {
+  background-color: black;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  padding: 20px;
+}
+
+h1 {
+  font-size: 3em;
+  color: #ff00ff; /* Neon pink */
+  text-shadow: 0 0 10px #ff00ff;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.5em;
+  color: gold;
+  text-shadow: 0 0 5px gold;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #222;
+  color: #0ff;
+  border: 2px solid #0ff;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+  border-radius: 8px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #0ff;
+  color: black;
+  box-shadow: 0 0 10px #0ff;
+}
+
+#result {
+  font-size: 2em;
+  margin-top: 30px;
+  color: #ff0;
+  text-shadow: 0 0 5px #ff0;
+}
+
+#slots {
+  font-size: 4em;
+  margin: 20px 0;
+  letter-spacing: 10px;
+  color: #0ff;
+  text-shadow: 0 0 10px #0ff;
+}
