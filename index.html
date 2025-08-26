@@ -4,48 +4,116 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🐾 Neon Cat Casino 🐾</title>
-  <link rel="stylesheet" href="style.css" />
-  <script defer src="script.js"></script>
   <style>
     body {
       background-color: black;
       color: white;
       font-family: 'Segoe UI', sans-serif;
       text-align: center;
-      padding: 2rem;
+      padding: 1rem;
     }
     h1 {
       font-size: 2.5rem;
-      margin-bottom: 1rem;
       color: hotpink;
+      margin-bottom: 1rem;
     }
-    #slots {
-      font-size: 4rem;
-      margin: 1rem 0;
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      font-size: 2.5rem;
+      margin: 1rem auto;
+      max-width: 300px;
     }
-    #result {
-      font-size: 1.5rem;
-      margin-bottom: 2rem;
+    .controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1rem;
     }
-    #spin {
-      padding: 0.8rem 2rem;
+    .controls div {
+      font-size: 1.2rem;
+    }
+    button {
+      padding: 0.6rem 1.5rem;
       font-size: 1.2rem;
       background-color: hotpink;
       color: black;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: transform 0.2s ease;
     }
-    #spin:hover {
-      transform: scale(1.05);
+    #result {
+      margin-top: 1rem;
+      font-size: 1.4rem;
+      color: gold;
     }
   </style>
 </head>
 <body>
   <h1>🎰 Neon Cat Casino 🎰</h1>
-  <div id="slots">🐱 🐱 🐱</div>
-  <div id="result">Press Spin to Play!</div>
-  <button id="spin">Spin</button>
+  <div class="grid" id="slotGrid">
+    <div>🐱</div><div>🐱</div><div>🐱</div>
+    <div>🐱</div><div>🐱</div><div>🐱</div>
+    <div>🐱</div><div>🐱</div><div>🐱</div>
+  </div>
+
+  <div class="controls">
+    <div>DEPOSIT: <span id="deposit">100</span></div>
+    <div>BET: <span id="bet">1</span></div>
+    <div>LINES: <span id="lines">1</span></div>
+    <div>TOTAL: £<span id="total">1.00</span></div>
+    <button id="spin">SPIN</button>
+  </div>
+
+  <div id="result">Press SPIN to play!</div>
+
+  <script>
+    const symbols = ["😺", "😻", "😹", "😽", "😼"];
+    const grid = document.getElementById("slotGrid").children;
+    const resultDisplay = document.getElementById("result");
+    const spinButton = document.getElementById("spin");
+    const depositDisplay = document.getElementById("deposit");
+    const betDisplay = document.getElementById("bet");
+    const linesDisplay = document.getElementById("lines");
+    const totalDisplay = document.getElementById("total");
+
+    let deposit = 100;
+    let bet = 1;
+    let lines = 1;
+
+    function getRandomSymbol() {
+      return symbols[Math.floor(Math.random() * symbols.length)];
+    }
+
+    function spinSlots() {
+      for (let i = 0; i < grid.length; i++) {
+        grid[i].textContent = getRandomSymbol();
+      }
+
+      deposit -= bet;
+      depositDisplay.textContent = deposit;
+      totalDisplay.textContent = (bet * lines).toFixed(2);
+
+      const topRow = [grid[0].textContent, grid[1].textContent, grid[2].textContent];
+      const middleRow = [grid[3].textContent, grid[4].textContent, grid[5].textContent];
+      const bottomRow = [grid[6].textContent, grid[7].textContent, grid[8].textContent];
+
+      const rows = [topRow, middleRow, bottomRow];
+      let matchFound = false;
+
+      for (let row of rows.slice(0, lines)) {
+        if (row[0] === row[1] && row[1] === row[2]) {
+          matchFound = true;
+          break;
+        }
+      }
+
+      resultDisplay.textContent = matchFound ? "🎉 JACKPOT! 🎉" : "😿 Try Again!";
+    }
+
+    spinButton.addEventListener("click", spinSlots);
+  </script>
 </body>
 </html>
